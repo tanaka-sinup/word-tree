@@ -178,3 +178,7 @@ form#create input {
 form#create input:first-child {
   margin-left: 20px;
 }
+
+#title-number{
+  color: green;
+}
