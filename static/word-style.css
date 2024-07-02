@@ -3,7 +3,7 @@
    License: none (public domain)
 */
 body {
-  font-family: 'Arial', sans-serif;
+  font-family: "Arial", sans-serif;
   line-height: 1.6;
   background: white;
   color: #333;
@@ -81,7 +81,7 @@ form#create input:first-child {
   margin-left: 20px;
 }
 
-#title-number{
+#title-number {
   color: green;
 }
 

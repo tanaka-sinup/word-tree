@@ -1,5 +1,5 @@
 body {
-  font-family: 'Arial', sans-serif;
+  font-family: "Arial", sans-serif;
   line-height: 1.6;
   background: white;
   color: #333;
@@ -54,10 +54,9 @@ p#question {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-
 /* 解答のスタイル */
 p#answer-text {
-  display: none; 
+  display: none;
   font-size: 1.2em;
   margin: 0 20px 20px;
   padding: 10px;
@@ -83,15 +82,13 @@ button:hover {
   background-color: #6666ff; /* ホバー時の背景色 */
 }
 
-
-
 .controls a:hover {
   background: #2980b9;
 }
 
 h2#question,
 h2#answer,
-h2#operation{
+h2#operation {
   font-size: 24px;
   margin: 0 20px 20px;
   padding: 6px 12px;
