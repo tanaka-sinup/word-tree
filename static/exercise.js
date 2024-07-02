@@ -1,7 +1,10 @@
-const showAnswerButton = document.getElementById("show-answer-button");
-const answer = document.getElementById("answer");
-
-showAnswerButton.onclick = () => {
-  answer.style.display = "block";
-  showAnswerButton.style.display = "none";
-};
+document.getElementById('show-answer-button').addEventListener('click', function() {
+  const answer = document.getElementById('answer');
+  if (answer.style.display === 'none') {
+    answer.style.display = 'block';
+    this.textContent = '解答を隠す';
+  } else {
+    answer.style.display = 'none';
+    this.textContent = '解答を表示';
+  }
+});
