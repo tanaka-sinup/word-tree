@@ -3,12 +3,13 @@
   <head>
     <meta charset="utf-8" />
     <title>単語帳</title>
+    <link rel="stylesheet" href="/word-style.css">
   </head>
   <body>
-    <h1>単語帳</h1>
-    <a href="/exercise">テストを始める</a>
-    <h2>問題一覧</h2>
-    <table>
+    <h1 id="title">単語帳</h1>
+    <a href="/exercise" id="exercise">テストを始める</a>
+    <h2 id="questions-title">問題一覧</h2>
+    <table id="questions">
       <thead>
         <tr>
           <th>問題</th>
@@ -20,8 +21,8 @@
         <!-- cards -->
       </tbody>
     </table>
-    <h3>新規作成</h3>
-    <form action="/create" method="post">
+    <h3 id="create-title">新規作成</h3>
+    <form action="/create" method="post" id="create">
       <input type="text" name="question" placeholder="問題" />
       <input type="text" name="answer" placeholder="解答" />
       <button type="submit">作成</button>
