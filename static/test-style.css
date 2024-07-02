@@ -44,19 +44,19 @@ h2 {
 }
 
 /* 問題と解答のスタイル */
-p {
+p#question {
   font-size: 1.2em;
-  margin-top: 10px;
+  margin: 0 20px 20px;
   padding: 10px;
-  background: #fff;
-  border: 1px solid #ddd;
+  background: #dff0d8;
+  border: 1px solid #d6e9c6;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 
 /* 解答のスタイル */
-#answer-text {
+p#answer-text {
   display: none; 
   font-size: 1.2em;
   margin: 0 20px 20px;
