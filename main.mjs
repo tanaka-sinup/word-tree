@@ -44,7 +44,7 @@ app.get("/exercise", async (request, response) => {
   try {
     const index = parseInt(request.query.index) || 0;
     const card = await prisma.card.findFirst({
-      where: { id: { gte: index } },
+      where: { id: { gte: index }, learned: false },
       orderBy: { id: "asc" },
     });
 
@@ -54,12 +54,12 @@ app.get("/exercise", async (request, response) => {
     }
 
     const previousCard = await prisma.card.findFirst({
-      where: { id: { lt: card.id } },
+      where: { id: { lt: card.id }, learned: false },
       orderBy: { id: "desc" },
     });
 
     const nextCard = await prisma.card.findFirst({
-      where: { id: { gt: card.id } },
+      where: { id: { gt: card.id }, learned: false },
       orderBy: { id: "asc" },
     });
 

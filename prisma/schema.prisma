@@ -7,11 +7,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Card {
-  id       Int    @id @default(autoincrement())
-  question String
-  answer   String
-}
 
 model Card {
   id        Int     @id @default(autoincrement())
