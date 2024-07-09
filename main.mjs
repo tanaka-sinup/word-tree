@@ -10,6 +10,9 @@ app.use(express.json());
 const prisma = new PrismaClient();
 
 const indexTemplate = fs.readFileSync("./templates/index.html", "utf-8");
+const exerciseTemplate = fs.readFileSync("./templates/exercise.html", "utf-8");
+const learnedTemplate = fs.readFileSync("./templates/learned.html", "utf-8");
+
 app.get("/", async (request, response) => {
   try {
     const cards = await prisma.card.findMany();
@@ -39,7 +42,6 @@ app.get("/", async (request, response) => {
   }
 });
 
-const exerciseTemplate = fs.readFileSync("./templates/exercise.html", "utf-8");
 app.get("/exercise", async (request, response) => {
   try {
     const index = parseInt(request.query.index) || 0;
@@ -76,6 +78,34 @@ app.get("/exercise", async (request, response) => {
       .replace("<!-- answer -->", escapeHTML(card.answer))
       .replace("<!-- controls -->", controlsHtml);
 
+    response.send(html);
+  } catch (error) {
+    console.error(error);
+    response.status(500).send("サーバーエラーが発生しました。");
+  }
+});
+
+app.get("/learned", async (request, response) => {
+  try {
+    const learnedCards = await prisma.card.findMany({
+      where: { learned: true },
+    });
+    const html = learnedTemplate.replace(
+      "<!-- learned-cards -->",
+      learnedCards
+        .map(
+          (card) => `
+            <tr>
+              <td>${escapeHTML(card.question)}</td>
+              <td>${escapeHTML(card.answer)}</td>
+              <td>
+                <button class="restore-button" data-id="${card.id}">テストに復活</button>
+              </td>
+            </tr>
+          `
+        )
+        .join("")
+    );
     response.send(html);
   } catch (error) {
     console.error(error);
@@ -125,6 +155,21 @@ app.post("/learned", async (request, response) => {
   }
 });
 
+app.post("/restore", async (request, response) => {
+  const { id } = request.body;
+  try {
+    await prisma.card.update({
+      where: { id: parseInt(id) },
+      data: { learned: false },
+    });
+    response.status(200).send("Restored");
+  } catch (error) {
+    console.error(error);
+    response.status(500).send("サーバーエラーが発生しました。");
+  }
+});
+
 app.listen(3000, () => {
   console.log("サーバーがポート3000で起動しました。");
 });
+
