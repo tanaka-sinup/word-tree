@@ -6,71 +6,125 @@ import escapeHTML from "escape-html";
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("static"));
+app.use(express.json());
 const prisma = new PrismaClient();
 
 const indexTemplate = fs.readFileSync("./templates/index.html", "utf-8");
 app.get("/", async (request, response) => {
-  const cards = await prisma.card.findMany();
-  const html = indexTemplate.replace(
-    "<!-- cards -->",
-    cards
-      .map(
-        (card) => `
-          <tr>
-            <td>${escapeHTML(card.question)}</td>
-            <td>${escapeHTML(card.answer)}</td>
-            <td>
-              <form action="/delete" method="post">
-                <input type="hidden" name="id" value="${card.id}" />
-                <button type="submit">削除</button>
-              </form>
-            </td>
-          </tr>
-        `,
-      )
-      .join(""),
-  );
-  response.send(html);
+  try {
+    const cards = await prisma.card.findMany();
+    const html = indexTemplate.replace(
+      "<!-- cards -->",
+      cards
+        .map(
+          (card) => `
+            <tr>
+              <td>${escapeHTML(card.question)}</td>
+              <td>${escapeHTML(card.answer)}</td>
+              <td>
+                <form action="/delete" method="post">
+                  <input type="hidden" name="id" value="${card.id}" />
+                  <button type="submit">削除</button>
+                </form>
+              </td>
+            </tr>
+          `
+        )
+        .join("")
+    );
+    response.send(html);
+  } catch (error) {
+    console.error(error);
+    response.status(500).send("サーバーエラーが発生しました。");
+  }
 });
 
 const exerciseTemplate = fs.readFileSync("./templates/exercise.html", "utf-8");
 app.get("/exercise", async (request, response) => {
-  const card = await prisma.card.findFirst({
-    where: { id: { gte: parseInt(request.query.index) || 0 } },
-    orderBy: { id: "asc" },
-  });
-  const previousCard = await prisma.card.findFirst({
-    where: { id: { lt: card.id } },
-    orderBy: { id: "desc" },
-  });
-  const nextCard = await prisma.card.findFirst({
-    where: { id: { gt: card.id } },
-    orderBy: { id: "asc" },
-  });
-  let controlsHtml = "";
-  if (previousCard !== null) {
-    controlsHtml += `<a href="/exercise?index=${previousCard.id}">前へ</a>`;
+  try {
+    const index = parseInt(request.query.index) || 0;
+    const card = await prisma.card.findFirst({
+      where: { id: { gte: index } },
+      orderBy: { id: "asc" },
+    });
+
+    if (!card) {
+      response.status(404).send("カードが見つかりませんでした。");
+      return;
+    }
+
+    const previousCard = await prisma.card.findFirst({
+      where: { id: { lt: card.id } },
+      orderBy: { id: "desc" },
+    });
+
+    const nextCard = await prisma.card.findFirst({
+      where: { id: { gt: card.id } },
+      orderBy: { id: "asc" },
+    });
+
+    let controlsHtml = "";
+    if (previousCard !== null) {
+      controlsHtml += `<a href="/exercise?index=${previousCard.id}">前へ</a>`;
+    }
+    if (nextCard !== null) {
+      controlsHtml += `<a href="/exercise?index=${nextCard.id}">次へ</a>`;
+    }
+
+    const html = exerciseTemplate
+      .replace("<!-- question -->", escapeHTML(card.question))
+      .replace("<!-- answer -->", escapeHTML(card.answer))
+      .replace("<!-- controls -->", controlsHtml);
+
+    response.send(html);
+  } catch (error) {
+    console.error(error);
+    response.status(500).send("サーバーエラーが発生しました。");
   }
-  if (nextCard !== null) {
-    controlsHtml += `<a href="/exercise?index=${nextCard.id}">次へ</a>`;
-  }
-  const html = exerciseTemplate
-    .replace("<!-- question -->", card.question)
-    .replace("<!-- answer -->", card.answer)
-    .replace("<!-- controls -->", controlsHtml);
-  response.send(html);
 });
 
 app.post("/create", async (request, response) => {
-  await prisma.card.create({
-    data: { question: request.body.question, answer: request.body.answer },
-  });
-  response.redirect("/");
+  const { question, answer } = request.body;
+  if (!question || !answer) {
+    response.status(400).send("質問と答えの両方を入力してください。");
+    return;
+  }
+  try {
+    await prisma.card.create({
+      data: { question, answer },
+    });
+    response.redirect("/");
+  } catch (error) {
+    console.error(error);
+    response.status(500).send("サーバーエラーが発生しました。");
+  }
 });
 
 app.post("/delete", async (request, response) => {
-  await prisma.card.delete({ where: { id: parseInt(request.body.id) } });
-  response.redirect("/");
+  try {
+    const id = parseInt(request.body.id);
+    await prisma.card.delete({ where: { id } });
+    response.redirect("/");
+  } catch (error) {
+    console.error(error);
+    response.status(500).send("サーバーエラーが発生しました。");
+  }
 });
 
-app.listen(3000);
+app.post("/learned", async (request, response) => {
+  const { question, learned } = request.body;
+  try {
+    await prisma.card.updateMany({
+      where: { question },
+      data: { learned: Boolean(learned) },
+    });
+    response.status(200).send("Updated");
+  } catch (error) {
+    console.error(error);
+    response.status(500).send("サーバーエラーが発生しました。");
+  }
+});
+
+app.listen(3000, () => {
+  console.log("サーバーがポート3000で起動しました。");
+});
