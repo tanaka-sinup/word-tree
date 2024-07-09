@@ -116,3 +116,16 @@ button#delete{
 button#delete:hover{
   background-color:#ff6666;
 }
+
+ @media (max-width: 700px) {
+  form#create input,
+  form#create button {
+    display: block;
+    width: 70%;
+    padding: 12px 6px;
+    margin: 20px auto 0;
+  }
+  form#create input:first-child {
+    margin: 20px auto 0;
+  }
+}
