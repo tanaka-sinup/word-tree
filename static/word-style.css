@@ -100,3 +100,19 @@ button {
 button:hover {
   background-color: #6666ff; /* ホバー時の背景色 */
 }
+
+button#delete{
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 16px;
+  background-color: #ff4444;
+  border-radius: 5px;
+  padding: 5px 10px;
+  border: none;
+  margin: 0 20px 20px;
+  transition: background-color 0.3s; 
+}
+
+button#delete:hover{
+  background-color:#ff6666;
+}
