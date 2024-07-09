@@ -1,18 +1,23 @@
-body {
-  font-family: "Arial", sans-serif;
-  line-height: 1.6;
-  background: white;
-  color: #333;
-  padding: 20px;
-  line-height: 1;
+/* Reset and basic styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-/* タイトルスタイル */
-h1#title {
-  background-color: #eeeeee;
-  font-size: 32px;
-  font-weight: bold;
+body {
+  font-family: 'Arial', sans-serif;
+  line-height: 1.6;
+  background: #f4f4f4;
+  color: #333;
   padding: 20px;
+}
+
+/* Title styles */
+h1#title {
+  font-size: 2.5em;
+  text-align: center;
+  color: #333;
   margin-bottom: 20px;
 }
 
@@ -20,78 +25,116 @@ h1#title {
   color: green;
 }
 
-/* リンクスタイル */
+/* Link styles */
 a {
   display: inline-block;
-  color: #ffffff;
+  margin-bottom: 20px;
+  color: #3498db;
   text-decoration: none;
-  font-size: 16px;
-  background-color: #4444ff;
-  border-radius: 5px;
-  padding: 10px;
-  margin: 0 20px 20px;
-  transition: all 0.2s linear;
-}
-a:hover {
-  background-color: #6666ff;
+  font-weight: bold;
+  transition: color 0.3s;
 }
 
-/* セクションタイトルスタイル */
+a:hover {
+  color: #2980b9;
+}
+
+/* Section title styles */
 h2 {
   font-size: 1.5em;
   color: #333;
   margin-top: 20px;
 }
 
-/* 問題と解答のスタイル */
-p#question {
+/* Problem and answer styles */
+p {
   font-size: 1.2em;
-  margin: 0 20px 20px;
+  margin-top: 10px;
   padding: 10px;
-  background: #dff0d8;
-  border: 1px solid #d6e9c6;
+  background: #fff;
+  border: 1px solid #ddd;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* 解答のスタイル */
-p#answer-text {
-  display: none;
-  font-size: 1.2em;
-  margin: 0 20px 20px;
-  padding: 10px;
-  background: #dff0d8;
-  border: 1px solid #d6e9c6;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-button {
-  color: #ffffff;
-  text-decoration: none;
-  font-size: 16px;
-  background-color: #4444ff;
-  border-radius: 5px;
-  padding: 5px 10px;
+/* Answer display button styles */
+#show-answer-button {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 1em;
+  background: #3498db;
+  color: #fff;
   border: none;
-  margin: 0 20px 20px;
-  transition: background-color 0.3s; /* ホバー時のアニメーション */
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
 }
 
-button:hover {
-  background-color: #6666ff; /* ホバー時の背景色 */
+#show-answer-button:hover {
+  background: #2980b9;
+}
+
+/* Additional styles */
+.controls a {
+  display: inline-block;
+  margin: 5px;
+  padding: 10px 20px;
+  font-size: 1em;
+  background: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background 0.3s;
 }
 
 .controls a:hover {
   background: #2980b9;
 }
 
-h2#question,
-h2#answer,
-h2#operation {
-  font-size: 24px;
-  margin: 0 20px 20px;
-  padding: 6px 12px;
-  border-left: 6px solid #4444ff;
-  border-bottom: 1px dotted #666666;
+/* Learned words page styles */
+h1#learned-title {
+  font-size: 2.5em;
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Table styles */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+th, td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+th {
+  background-color: #f4f4f4;
+}
+
+/* Button styles */
+button {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 1em;
+  background: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background: #2980b9;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
 }
