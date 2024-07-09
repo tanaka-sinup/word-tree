@@ -10,3 +10,7 @@ document
       this.textContent = "解答を表示";
     }
   });
+document.addEventListener("DOMContentLoaded", function() {
+  const answer = document.getElementById("answer-text");
+  answer.style.display = "none";
+});
