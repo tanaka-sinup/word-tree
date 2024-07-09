@@ -8,7 +8,6 @@ document.getElementById('show-answer-button').addEventListener('click', function
     this.textContent = '解答を表示';
   }
 });
-
 document.getElementById('mark-learned-button').addEventListener('click', async function() {
   const question = document.getElementById('question').textContent;
   const response = await fetch('/learned', {

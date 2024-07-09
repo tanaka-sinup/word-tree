@@ -172,4 +172,3 @@ app.post("/restore", async (request, response) => {
 app.listen(3000, () => {
   console.log("サーバーがポート3000で起動しました。");
 });
-

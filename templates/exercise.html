@@ -1,24 +1,23 @@
 <!doctype html>
 <html lang="ja">
-<head>
-  <meta charset="utf-8">
-  <title>単語帳</title>
-  <link rel="stylesheet" href="/test-style.css">
-</head>
-<body>
-  <h1 id="title">WordTree<span id="title-number">3000</span></h1>
-  <a href="/">戻る</a>
-  <h2>問題</h2>
-  <p><!-- question --></p>
-  <h2>解答</h2>
-  <button id="show-answer-button">解答を表示</button>
-  <p id="answer"><!-- answer --></p>
-  <h2>操作</h2>
-  <!-- controls -->
-  <div class="controls"><!-- controls --></div>
-  <button id="mark-learned-button">✓ 覚えた</button>
-  <a href="/learned">覚えた単語を見る</a> <!-- ここにリンクを追加 -->
-  <script src="/exercise.js"></script>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <title>単語帳</title>
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0">
+    <link rel="stylesheet" href="/test-style.css" />
+  </head>
+  <body>
+    <h1 id="title">WordTree<span id="title-number">3000</span></h1>
+    <a href="/">新しく問題を作成する</a>
+    <h2 id="question">問題</h2>
+    <p><!-- question --></p>
+    <h2 id="answer">解答</h2>
+    <button id="show-answer-button">解答を表示</button>
+    <p id="answer-text"><!-- answer --></p>
+    <h2 id="operation">操作</h2>
+    <div class="controls"><!-- controls --></div>
+    <button id="mark-learned-button">✓ 覚えた</button>
+    <a href="/learned">覚えた単語を見る</a> <!-- ここにリンクを追加 -->
+    <script src="/exercise.js"></script>
+  </body>
 </html>
-
