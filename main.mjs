@@ -22,7 +22,7 @@ app.get("/", async (request, response) => {
             <td>
               <form action="/delete" method="post">
                 <input type="hidden" name="id" value="${card.id}" />
-                <button type="submit">削除</button>
+                <button type="submit" id="delete">削除</button>
               </form>
             </td>
           </tr>
