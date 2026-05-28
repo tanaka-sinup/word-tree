@@ -7,8 +7,10 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+
 model Card {
-  id       Int    @id @default(autoincrement())
-  question String
-  answer   String
+  id        Int     @id @default(autoincrement())
+  question  String
+  answer    String
+  learned   Boolean @default(false)
 }
